@@ -315,7 +315,7 @@ CREATE TRIGGER VerificaNotaAntesInsercao
 BEFORE INSERT ON Avaliacoes
 FOR EACH ROW
 BEGIN
-    -- Verifica se a nota está dentro do intervalo permitido
+   
     IF NEW.notaObtida < 0 OR NEW.notaObtida > 10 THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Nota deve estar entre 0 e 10!';
     END IF;
@@ -556,7 +556,7 @@ LEFT JOIN
 GROUP BY 
     t.idTurma, t.nomeDaTurma, t.anoLetivo, e.Nome
 HAVING 
-    COUNT(a.idAluno) > 1;  -- Aqui estamos ajustando para mostrar turmas com mais de 1 aluno
+    COUNT(a.idAluno) > 1;  
 
     
 SELECT * FROM vw_turmas_com_maior_numero_de_alunos;
@@ -566,8 +566,8 @@ SELECT
     p.idProfessor, 
     p.nome AS professor_nome, 
     e.Nome AS escola_nome, 
-    COUNT(DISTINCT a.idAluno) AS alunos_avaliados,   -- Número de alunos avaliados
-    AVG(av.notaObtida) AS media_notas -- Média das notas dos alunos avaliados
+    COUNT(DISTINCT a.idAluno) AS alunos_avaliados,  
+    AVG(av.notaObtida) AS media_notas 
 FROM 
     Professores p
 JOIN 
@@ -577,9 +577,9 @@ JOIN
 JOIN 
     Alunos a ON av.idAluno = a.idAluno
 GROUP BY 
-    p.idProfessor, p.nome, e.Nome -- Agrupando por professor e escola
+    p.idProfessor, p.nome, e.Nome 
 ORDER BY 
-    media_notas DESC;  -- Ordenando pela média das notas de forma decrescente
+    media_notas DESC;  
 
 SELECT * FROM vw_professores_media_notas;
 
